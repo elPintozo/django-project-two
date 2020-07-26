@@ -4,7 +4,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
 from django.contrib.auth import logout
-
+from .forms import RegisterForm
+from django.contrib.auth.models import User
 
 def index(request):
     """
@@ -76,3 +77,38 @@ def logout_view(request):
     logout(request)
     messages.success(request, 'Su sesión ha sido cerrada con éxito.')
     return redirect('login')
+
+def register(request):
+    """
+    Funcion que me ayuda a registrar nuevos usuarios
+    :param request (POST):
+    :return (render):
+    """
+    ##variab que contiene las variabels usadas en el template
+    data = dict()
+
+    ##formulario solicitado
+    form = RegisterForm(request.POST or None)
+
+    ##se valida que se realizo una consulta post y que el formulario es valido
+    if request.method == 'POST' and form.is_valid():
+
+        ##se procede a crear el registro de tipo User, sin permisos de administrador
+        new_user = form.save()
+
+        ##si el registro no es un None, es porque se creo exitosamente
+        if new_user:
+
+            ##se procede a loguear al nuevo usuario
+            login(request, new_user)
+
+            ##se genera el mensaje de creación exitosa del usuario
+            messages.success(request, 'Usuario {}, creado exitosamente.'.format(new_user.username))
+
+            ##se redirecciona a la página principal
+            return redirect('index')
+
+    data ={
+        'form':form
+    }
+    return render(request, 'users/register.html', data)
