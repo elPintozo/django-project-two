@@ -3,6 +3,7 @@ from django.shortcuts import redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
+from django.contrib.auth import logout
 
 
 def index(request):
@@ -41,8 +42,8 @@ def index(request):
 def login_view(request):
     """
     Funcion en donde los usuarios se podrán registrar
-    :param request:
-    :return:
+    :param request (POST): username and password
+    :return (render/redirect):
     """
     data = dict()
 
@@ -65,3 +66,13 @@ def login_view(request):
             messages.error(request, 'Usuario o contraseña no validos.')
 
     return render(request, 'users/login.html', data)
+
+def logout_view(request):
+    """
+    Funcion que me ayuda a cerrar la sesión de un usuario
+    :param request (None):
+    :return (redirect):
+    """
+    logout(request)
+    messages.success(request, 'Su sesión ha sido cerrada con éxito.')
+    return redirect('login')
