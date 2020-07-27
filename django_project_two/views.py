@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login
 from django.contrib.auth import logout
 from .forms import RegisterForm
+from apps.photos.models import Photo
 from django.contrib.auth.models import User
 
 def index(request):
@@ -18,25 +19,7 @@ def index(request):
     data = {
         'title': 'Fotos',
         'message': 'Lista de Fotos',
-        'list_photos': [
-            {
-                'title': "Animal's Photos",
-                'price': 150,
-                'stock': True
-            },{
-                'title': "Plant's Photos",
-                'price': 250,
-                'stock': False
-            },{
-                'title': "Car's Photos",
-                'price': 350,
-                'stock': True
-            },{
-                'title': "Pen's Photos",
-                'price': 50,
-                'stock': False
-            }
-        ]
+        'photo_list': Photo.objects.all().order_by('-id')
     }
     return render(request, 'index.html', data)
 

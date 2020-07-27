@@ -6,7 +6,7 @@
             {# This is a comment at template using Django#}
             <h1>{{message}}</h1>
             <ul class="list-group">
-                {% for photo in list_photos %}
+                {% for photo in photo_list %}
                     <li class="list-group-item">{{photo.title}}
                         {% if photo.stock %}
                             <span class="text-success">Disponible</span>
