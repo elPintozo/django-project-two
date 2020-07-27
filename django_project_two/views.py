@@ -66,6 +66,9 @@ def login_view(request):
         else:
             messages.error(request, 'Usuario o contraseña no validos.')
 
+    data={
+        'title':'Login'
+    }
     return render(request, 'users/login.html', data)
 
 def logout_view(request):
@@ -109,6 +112,7 @@ def register(request):
             return redirect('index')
 
     data ={
-        'form':form
+        'form':form,
+        'title':'Registro'
     }
     return render(request, 'users/register.html', data)
