@@ -1,0 +1,32 @@
+{% url 'login' as login %} {#usuarios/login#}
+{% url 'logout' as logout %} {#usuarios/logout#}
+{% url 'register' as register %} {#usuarios/registro#}
+
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <a href="#" class="navbar-brand">
+        Photo's Store
+    </a>
+    <button type="button" name="button" class="navbar-toggler navbar-toggler-right" data-toggle="collapse" data-target="#navb">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navb" class="navbar-collapse collapse hide">
+        <ul class="nav navbar-nav ml-auto">
+            {% if user.is_authenticated %}
+                <li class="navbar-item">
+                    <a href="{{logout}}" class="nav-link">
+                        <span class="fas fa-sign-in-alt"></span> Logout</a>
+                </li>
+            {% else %}
+                <li class="navbar-item {% if request.path == login %}active{% endif %}">
+                    <a href="{{login}}" class="nav-link">
+                        <span class="fas fa-user"></span> Login</a>
+                </li>
+                <li class="navbar-item {% if request.path == register %}active{% endif %}">
+                    <a href="{{register}}" class="nav-link">
+                        <span class="fas fa-user-plus"></span> Register</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>

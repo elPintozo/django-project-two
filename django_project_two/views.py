@@ -13,7 +13,7 @@ def index(request):
     :param request:
     :return:
     """
-    data =dict()
+    data = dict()
 
     data = {
         'title': 'Fotos',
@@ -46,6 +46,12 @@ def login_view(request):
     :param request (POST): username and password
     :return (render/redirect):
     """
+
+    ## valido para evitar ingresar por URL
+    if request.user.is_authenticated:
+        return redirect('index')
+
+    ##variab que contiene las variabels usadas en el template
     data = dict()
 
     if request.method == 'POST':
@@ -87,6 +93,10 @@ def register(request):
     :param request (POST):
     :return (render):
     """
+    ## valido para evitar ingresar por URL
+    if request.user.is_authenticated:
+        return redirect('index')
+
     ##variab que contiene las variabels usadas en el template
     data = dict()
 
