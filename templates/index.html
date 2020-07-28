@@ -2,20 +2,16 @@
 
 {% block content %}
     <div class="row">
-        <div class="col">
+        <div class="col mt-2">
             {# This is a comment at template using Django#}
-            <h1>{{message}}</h1>
-            <ul class="list-group">
-                {% for photo in photo_list %}
-                    <li class="list-group-item">{{photo.title}}
-                        {% if photo.stock %}
-                            <span class="text-success">Disponible</span>
-                        {% else %}
-                            <span class="text-danger">No disponible</span>
-                        {% endif %}
-                    </li>
-                {% endfor %}
-            </ul>
+            <h4 class="text-center">{{message}}</h4>
+        </div>
+        <div class="row">
+            {% for photo in photo_list %}
+                <div class="col-3 mt-5">
+                    {% include 'photos/snippets/photo.html' with photo=photo%}
+                </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock%}

@@ -22,7 +22,7 @@ class PhotoListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Fotos'
-        context['message'] = 'Lista de Fotos'
+        context['message'] = 'List of Photos'
         return context
 
 class PhotoDetailView(DetailView):
@@ -41,7 +41,7 @@ class PhotoDetailView(DetailView):
     ##para asi poder agregar más data al tempalte
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Detalles'
+        context['title'] = 'Details'
         return context
 
 
