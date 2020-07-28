@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from django.utils.text import slugify
 from django.db.models.signals import pre_save
@@ -10,6 +11,7 @@ class Photo(models.Model):
     create_at = models.DateTimeField(auto_now_add=True)
     stock = models.IntegerField()
     slug = models.SlugField(null=False, blank=False, unique=True)
+    image = models.ImageField(upload_to='photos/', null=False, blank=False)
 
     # def save(self, *args, **kwargs):
     #     ## haciendo uso de una funcion, notificamos que haga el slug a partir del titulo
@@ -32,7 +34,20 @@ def set_slug(sender, instance, *args, **kwargs):
     :param instance (Photo): instancia del objeto acrear
     :return:
     """
-    instance.slug = slugify(instance.title)
+    #valido que el objeto tenga titulo para poder hacer el slug
+    if instance.title and not instance.slug:
+
+        #genero un slug para la instancia
+        slug = slugify(instance.title)
+
+        #valido que el slug no exista entre los ya existentes
+        while Photo.objects.filter(slug=slug).exists():
+
+            ##genero el slug con un formato diferente para evitar duplicados
+            slug = slugify('{}-{}'.format(instance.title, str(uuid.uuid4())[:8]))
+
+        #asigno el slug creado a la instancia
+        instance.slug = slug
 
 ##Se le indica al pre_save que función correr antes de hacer el save() y sobre que Objects
 pre_save.connect(set_slug, sender=Photo)

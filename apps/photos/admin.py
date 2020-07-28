@@ -9,7 +9,8 @@ class PhotoAdmin(admin.ModelAdmin):
     fields = ('title',
               'description',
               'price',
-              'stock',)
+              'stock',
+              'image',)
 
     ##indicamos los campos a mostrar al momento de listar
     list_display = ('__str__', 'slug', 'create_at',)

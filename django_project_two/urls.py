@@ -17,6 +17,9 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import include
 from apps.photos.views import PhotoListView
+from django.conf.urls.static import static
+from django.conf import settings
+
 from . import views
 
 urlpatterns = [
@@ -27,3 +30,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('photos/', include('apps.photos.urls'))
 ]
+#esto nos permite mostrar nuestros archivos multimedia en los template
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
