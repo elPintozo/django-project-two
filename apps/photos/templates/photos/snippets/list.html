@@ -1,0 +1,5 @@
+{% for photo in photo_list %}
+    <div class="col-3 mt-5">
+        {% include 'photos/snippets/photo.html' with photo=photo%}
+    </div>
+{% endfor %}
