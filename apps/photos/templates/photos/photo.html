@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col">
+            <h2>Detalles del producto</h2></br>
+            <h4><strong>Título:</strong>{{photo.title}}</h4>
+            <h4><strong>Descripción:</strong>{{photo.description}}</h4>
+            <h4><strong>Precio:</strong>{{photo.price}}</h4>
+            <h4><strong>Stock Disponible:</strong>{{photo.stock}}</h4>
+            <h4><strong>Fecha lanzamiento:</strong>{{photo.create_at}}</h4>
+        </div>
+    </div>
+{% endblock%}
