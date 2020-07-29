@@ -18,7 +18,7 @@ class Photo(models.Model):
     #     self.slug = slugify(self.title)
     #     super(Photo, self).save(*args, **kwargs)
 
-    ##la forma en como será visible le objeto al momento de ser pasado a string
+    ##la forma en como será visible el objeto al momento de ser pasado a string
     def __str__(self):
         return self.title
 
