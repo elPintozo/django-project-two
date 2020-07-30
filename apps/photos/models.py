@@ -51,3 +51,27 @@ def set_slug(sender, instance, *args, **kwargs):
 
 ##Se le indica al pre_save que función correr antes de hacer el save() y sobre que Objects
 pre_save.connect(set_slug, sender=Photo)
+
+
+"""
+Tips para extraer los datos de la bd:
+En la terminal
+
+##Obtener toda la información de toda la base de datos
+- python3 manage.py dumpdata 
+
+# obtener la información de todos los registros de Photo
+- python3 manage.py dumpdata photos.Photo 
+
+# obtener la información de todos los registros de Photo en formato Json
+- python3 manage.py dumpdata photos.Photo --format=json 
+
+# obtener la información de todos los registros de Photo en formato Json y con una visualizacion en terminal
+- python3 manage.py dumpdata photos.Photo --format=json --indent=4
+
+# obtener la información de todos los registros de Photo en formato Json y con una visualizacion en terminal
+- python3 manage.py dumpdata photos.Photo --format=json --indent=4 > apps/photos/fixtures/photos_072020.json
+
+# para cargar la data ya almacenada dentro de un Json en el proyecto/ loaddata inspecciona las carpetas fixture de cada app
+- python3 manage.py loaddata photos_072020.json
+"""

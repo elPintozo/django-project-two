@@ -1,0 +1,80 @@
+[
+{
+    "model": "photos.photo",
+    "pk": 1,
+    "fields": {
+        "title": "Animal's Photos",
+        "description": "Amazin and nice photos from different animals",
+        "price": "9.90",
+        "create_at": "2020-07-27T17:42:07.501Z",
+        "stock": 5,
+        "slug": "animals-photos",
+        "image": "photos/animal.jpg"
+    }
+},
+{
+    "model": "photos.photo",
+    "pk": 2,
+    "fields": {
+        "title": "Plant's Photos",
+        "description": "Amazin and nice photos from different plants",
+        "price": "6.90",
+        "create_at": "2020-07-27T17:43:15.899Z",
+        "stock": 3,
+        "slug": "plants-photos",
+        "image": "photos/plantas.jpg"
+    }
+},
+{
+    "model": "photos.photo",
+    "pk": 3,
+    "fields": {
+        "title": "Car's Photos",
+        "description": "Amazin and nice photos from different cars",
+        "price": "10.90",
+        "create_at": "2020-07-27T17:52:17.906Z",
+        "stock": 0,
+        "slug": "cars-photos",
+        "image": "photos/auto.jpg"
+    }
+},
+{
+    "model": "photos.photo",
+    "pk": 4,
+    "fields": {
+        "title": "Pen's Photos",
+        "description": "Amazin and nice photos from different pens",
+        "price": "2.50",
+        "create_at": "2020-07-27T17:52:40.538Z",
+        "stock": 0,
+        "slug": "pens-photos",
+        "image": "photos/lapices.jpg"
+    }
+},
+{
+    "model": "photos.photo",
+    "pk": 5,
+    "fields": {
+        "title": "Computer's Photos",
+        "description": "Amazin and nice photos from different Computers",
+        "price": "7.99",
+        "create_at": "2020-07-28T15:15:54.837Z",
+        "stock": 13,
+        "slug": "computers-photos",
+        "image": "photos/computador.jpg"
+    }
+},
+{
+    "model": "photos.photo",
+    "pk": 6,
+    "fields": {
+        "title": "Tree's Photos",
+        "description": "Amazin and nice photos from different Tree",
+        "price": "2.99",
+        "create_at": "2020-07-28T15:53:00.701Z",
+        "stock": 0,
+        "slug": "trees-photos",
+        "image": "photos/arbol.jpg"
+    }
+}
+]

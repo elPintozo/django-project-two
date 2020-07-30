@@ -1,0 +1,39 @@
+[
+{
+    "model": "categories.category",
+    "pk": 1,
+    "fields": {
+        "title": "Means of transports",
+        "description": "means of transports",
+        "create_at": "2020-07-29T22:23:34.531Z",
+        "photos": [
+            3
+        ]
+    }
+},
+{
+    "model": "categories.category",
+    "pk": 2,
+    "fields": {
+        "title": "Things of tecnology",
+        "description": "Things of tecnology",
+        "create_at": "2020-07-29T22:25:04.911Z",
+        "photos": [
+            5
+        ]
+    }
+},
+{
+    "model": "categories.category",
+    "pk": 3,
+    "fields": {
+        "title": "Things of natural",
+        "description": "things of natural",
+        "create_at": "2020-07-29T22:25:27.280Z",
+        "photos": [
+            2,
+            6
+        ]
+    }
+}
+]
