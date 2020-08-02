@@ -1,6 +1,7 @@
 {% url 'login' as login %} {#usuarios/login#}
 {% url 'logout' as logout %} {#usuarios/logout#}
 {% url 'register' as register %} {#usuarios/registro#}
+{% url 'carts:cart' as cart %} {#carts/cart#}
 
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
     <a href="{% url 'index' %}" class="navbar-brand">
@@ -11,11 +12,19 @@
     </button>
 
     <div id="navb" class="navbar-collapse collapse hide">
+        <ul class="navbar-nav">
+            <li class="nav-item {% if request.path == cart %}active{% endif %}">
+                <a class="nav-link" href="{{cart}}">
+                    My Cart <span class="fas fa-shopping-cart"></span>
+                </a>
+            </li>
+        </ul>
         <ul class="nav navbar-nav ml-auto">
             {% if user.is_authenticated %}
                 <li class="navbar-item">
                     <a href="{{logout}}" class="nav-link">
-                        <span class="fas fa-sign-in-alt"></span> Logout</a>
+                        <span class="fas fa-sign-in-alt"></span> Logout
+                    </a>
                 </li>
             {% else %}
                 <li class="navbar-item {% if request.path == login %}active{% endif %}">
