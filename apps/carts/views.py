@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from .models import Cart
+from .utils import get_or_create_cart
+
 # Create your views here.
 def cart(request):
     """
@@ -10,21 +12,6 @@ def cart(request):
     #diccionario con data para el template
     data = dict()
 
-    #obtengo la instancia del user registrado
-    user = request.user if request.user.is_authenticated else None
-
-    #obtengo el id del carrito
-    cart_id = request.session.get('cart_id')
-
-    #valido si hay un carrito
-    if cart_id:
-        #el usuario posee un carrito de compra
-        cart = Cart.objects.get(cart_id=int(cart_id))
-    else:
-        #si el usuario no tiene un carrito se le asigna uno
-        cart = Cart.objects.create(user=user)
-
-
-    request.session['cart_id'] =cart.cart_id
+    cart = get_or_create_cart(request)
 
     return render(request, 'carts/cart.html', data)
