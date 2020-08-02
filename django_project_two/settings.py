@@ -54,6 +54,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'django_project_two.urls'
 
+# Para conservar todo el sistema de registros mediante password y login/logout
+# esto considerando que se hizo uso de AbstractUser/AbstractBaseUser
+AUTH_USER_MODEL = 'users.User'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

@@ -6,8 +6,8 @@ from django.contrib.auth import login
 from django.contrib.auth import logout
 from .forms import RegisterForm
 from apps.photos.models import Photo
-from django.contrib.auth.models import User
-
+#from django.contrib.auth.models import User
+from apps.users.models import User
 def index(request):
     """
     funcion principal
