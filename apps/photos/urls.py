@@ -5,6 +5,6 @@ from .views import PhotoDetailView, PhotoSearchListView
 app_name = 'photos'
 
 urlpatterns = [
-    path('search', PhotoSearchListView.as_view(), name='product_search'),
-    path('<slug:slug>', PhotoDetailView.as_view(), name='product_detail')
+    path('search', PhotoSearchListView.as_view(), name='search'),
+    path('<slug:slug>', PhotoDetailView.as_view(), name='detail')
 ]

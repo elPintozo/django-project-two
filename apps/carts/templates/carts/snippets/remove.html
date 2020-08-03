@@ -1,0 +1,7 @@
+{% url 'carts:remove' as remove %} {#carts/remove#}
+
+<form method="post" action="{{remove}}">
+    {% csrf_token %}
+    <input type="hidden" name="photo_id" value="{{photo.id}}">
+    <button type="submit" class="btn btn-link text-danger">Quitar al carrito</button>
+</form>

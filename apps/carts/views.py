@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Cart
 from .utils import get_or_create_cart
 from apps.photos.models import Photo
@@ -16,6 +16,7 @@ def cart(request):
     #Obtengo el carrito que se está usando
     cart = get_or_create_cart(request)
 
+    data['cart'] = cart
     return render(request, 'carts/cart.html', data)
 
 def add(request):
@@ -38,3 +39,24 @@ def add(request):
 
     data['photo']=photo
     return render(request, 'carts/add.html', data)
+
+def remove(request):
+    """
+    Función que me ayuda a eliminar una photo del
+    carrito de compra
+    :param request (POST):
+    :return (redirect):
+    """
+    # diccionario con data para el template
+    data = dict()
+
+    # Obtengo el carrito que se está usando
+    cart = get_or_create_cart(request)
+
+    # Obtengo la photo del articulo que se quiere agregar al carrito
+    photo = Photo.objects.get(pk=request.POST.get('photo_id'))
+
+    #elimini la relación de la photo con el carrito
+    cart.photos.remove(photo)
+
+    return redirect('carts:cart')
