@@ -17,5 +17,8 @@
             <h4><strong>Stock Disponible:</strong>{{photo.stock}}</h4>
             <h4><strong>Fecha lanzamiento:</strong>{{photo.create_at}}</h4>
         </div>
+        <div class="">
+            {% include 'carts/snippets/add.html' %}
+        </div>
     </div>
 {% endblock%}
