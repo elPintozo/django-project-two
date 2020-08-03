@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load photo_extras%}
 {% url 'photos:photo' photo.slug as photo_detail %}
 
 {% block content %}
@@ -16,7 +17,7 @@
                 <a href="{{photo_detail}}">{{photo.title}}</a>
             </div>
             <div class="font-weight-bold text-danger">
-                ${{photo.price}}
+                {{photo.price| price_format}}
             </div>
         </div>
     </div>
