@@ -18,21 +18,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for photo in cart.photos.all %}
-                                <tr>
-                                    <th>{{forloop.counter}}</th>
-                                    <th>
-                                        {% if photo.image%}
-                                            <img src="{{photo.image.url}}" alt="Imágen del producto" width="60" height="60">
-                                        {% endif %}
-                                    </th>
-                                    <th>
-                                        <a href="{% url 'photos:detail' photo.slug %}">{{photo.title}}</a>
-                                        {% include 'carts/snippets/remove.html' %}
-                                    </th>
-                                    <th>1</th>
-                                    <th><span class="font-weight-bold text-danger">{{photo.price|price_format}}</span></th>
-                                </tr>
+                            {% for cartphoto in cart.cartphotos_set.all %}
+                                {% with photo=cartphoto.photo %}
+                                    <tr>
+                                        <th>{{forloop.counter}}</th>
+                                        <th>
+                                            {% if photo.image%}
+                                                <img src="{{photo.image.url}}" alt="Imágen del producto" width="60" height="60">
+                                            {% endif %}
+                                        </th>
+                                        <th>
+                                            <a href="{% url 'photos:detail' photo.slug %}">{{photo.title}}</a>
+                                            {% include 'carts/snippets/remove.html' %}
+                                        </th>
+                                        <th>{{cartphoto.quantity}}</th>
+                                        <th><span class="font-weight-bold text-danger">{{photo.price|price_format}}</span></th>
+                                    </tr>
+                                {% endwith %}
                             {% endfor %}
                         </tbody>
                     </table>

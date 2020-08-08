@@ -13,7 +13,7 @@ class PhotoAdmin(admin.ModelAdmin):
               'image',)
 
     ##indicamos los campos a mostrar al momento de listar
-    list_display = ('__str__', 'slug', 'create_at',)
+    list_display = ('__str__', 'slug', 'create_at', 'stock', 'price')
 
 ## indicamos al admin la presencia de nuestro model
 ## Indicamos los parametros a considerar de nuestro model

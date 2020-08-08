@@ -12,7 +12,7 @@ class Cart(models.Model):
     #Una relacion uno a muchos
     user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
     #Una relacion muchos a muchos
-    photos = models.ManyToManyField(Photo)
+    photos = models.ManyToManyField(Photo, through='CartPhotos')
     total = models.DecimalField(default=0.0, max_digits=8, decimal_places=2)
     subtotal = models.DecimalField(default=0.0, max_digits=8, decimal_places=2)
     create_at = models.DateTimeField(auto_now_add=True)
@@ -47,6 +47,12 @@ class Cart(models.Model):
         """
         self.total = self.subtotal * decimal.Decimal(Cart.COMISION)
         self.save()
+
+class CartPhotos(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    photo = models.ForeignKey(Photo, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+    create_at = models.DateTimeField(auto_now_add=True)
 
 def set_cart_id(sender, instance, *args, **kwargs):
     """

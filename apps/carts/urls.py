@@ -4,7 +4,7 @@ from .views import cart, add, remove
 app_name='carts'
 
 urlpatterns = [
-    path('', cart, name='cart'),
+    path('all', cart, name='cart'),
     path('add', add, name='add'),
     path('remove', remove, name='remove')
 ]

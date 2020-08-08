@@ -35,8 +35,13 @@ def add(request):
     # photo = Photo.objects.get(pk=request.POST.get('photo_id'))
     photo = get_object_or_404(Photo, pk=request.POST.get('photo_id'))
 
+    #obtengo la cantidad solicitada
+    quantity = int(request.POST.get('quantity', 1))
+
     #asocio la foto al carrito
-    cart.photos.add(photo)
+    cart.photos.add(photo, through_defaults={
+        'quantity':quantity
+    })
 
     data['photo']=photo
     return render(request, 'carts/add.html', data)

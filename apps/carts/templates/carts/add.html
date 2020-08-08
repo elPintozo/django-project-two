@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
 {% load photo_extras%}
 {% url 'photos:photo' photo.slug as photo_detail %}
-{% url 'carts:cart' as cart %}
-{% url 'index' as index %}
 
 {% block content %}
     <div class="row">
@@ -22,10 +20,10 @@
                 {{photo.price| price_format}}
             </div>
             <div class="mt-2">
-                <a href="{{cart}}" class="btn btn-info">Ver carrito</a>
+                <a href="{% url 'carts:cart'%}" class="btn btn-info">Ver carrito</a>
             </div>
             <div class="mt-2">
-                <a href="{{index}}" class="btn btn-">Seguir comprando</a>
+                <a href="{% url 'index'%}" class="btn btn-success">Seguir comprando</a>
             </div>
         </div>
     </div>

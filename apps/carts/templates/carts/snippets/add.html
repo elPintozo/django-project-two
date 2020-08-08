@@ -3,5 +3,34 @@
 <form method="post" action="{{add}}">
     {% csrf_token %}
     <input type="hidden" name="photo_id" value="{{photo.id}}">
-    <button type="submit" class="btn btn-warning">Agregar al carrito</button>
+
+    <div class="row">
+        <div class="col-12 mt-2">
+            <button type="button" class="btn btn-info col-sm-3 d-inline" id="btn_remove">-</button>
+            <input type="number" id="input_quantity" name="quantity" class="form-control col-sm-5 d-inline" readonly value="1" style="text-align:center;">
+            <button type="button" class="btn col-sm-3 btn-info d-inline" id="btn_add">+</button>
+        </div>
+
+        <div class="col-12 mt-2">
+            <button type="submit" class="btn btn-block btn-warning">Agregar al carrito</button>
+        </div>
+    </div>
 </form>
+ <script>
+
+     const add = document.getElementById('btn_add');
+     const remove = document.getElementById('btn_remove');
+     const quantity = document.getElementById('input_quantity');
+
+     add.addEventListener('click', function(){
+        quantity.value = parseInt(quantity.value)+1;
+     });
+
+     remove.addEventListener('click', function(){
+        value = parseInt(quantity.value);
+        if(value!=0){
+            quantity.value = parseInt(quantity.value)-1;
+        }
+     });
+
+ </script>
