@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
-{% load photo_extras%}
+{% load photo_extras %}
+{% load cart_extras %}
 {% url 'photos:photo' photo.slug as photo_detail %}
 
 {% block content %}
@@ -11,7 +12,7 @@
         </div>
         <div class="col mt-9">
             <div class="h3 font-weight-bold text success">
-                Producto agregado al carrito de compras
+                {{ quantity | quantity_add_format }} al carrito
             </div>
             <div class="">
                 <a href="{{photo_detail}}">{{photo.title}}</a>

@@ -43,7 +43,8 @@ def add(request):
                                                               photo=photo,
                                                               quantity=quantity)
 
-    data['photo']=photo
+    data['photo'] = photo
+    data['quantity'] = quantity
     return render(request, 'carts/add.html', data)
 
 def remove(request):
