@@ -1,7 +1,7 @@
 from django.db import models
 from apps.users.models import User
 from apps.photos.models import Photo
-from django.db.models.signals import pre_save, m2m_changed
+from django.db.models.signals import pre_save, m2m_changed, post_save
 import uuid
 import decimal
 
@@ -37,7 +37,7 @@ class Cart(models.Model):
         :return:
         """
         ##Sumo el precio de todos las photo relacionadas con el registro Cart actual
-        self.subtotal = sum( [ photo.price for photo in self.photos.all() ] )
+        self.subtotal = sum( [ cp.quantity * cp.photo.price for cp in self.photo_related() ] )
         self.save()
 
     def update_total(self):
@@ -49,6 +49,11 @@ class Cart(models.Model):
         self.save()
 
     def photo_related(self):
+        """
+        Funcion que me retorna una queryset entre la instancia actual Cart
+        con la clase CartPhotos
+        :return (queyset):
+        """
         return self.cartphotos_set.select_related('photo')
 
 class CartPhotosManager(models.Manager):
@@ -119,8 +124,14 @@ def update_totals(sender, instance, action, *args, **kwargs):
     if action == 'post_add' or action == 'post_remove' or action == 'post_clear':
         instance.update_totals()
 
+def post_save_update_totals(sender, instance, *args, **kwargs):
+    instance.cart.update_totals()
+
 #Asigno al pre_save la función que actuará antes de guardar, e indico a que class corresponde
 pre_save.connect(set_cart_id, sender=Cart)
+
+#Asigno al post_save la función que actuará después de guardar, e indico a que class corresponde
+post_save.connect(post_save_update_totals, sender=CartPhotos)
 
 #Asigno al m2m_changed la función que actuará antes actualizaciones de .photos, e indico a que class corresponde
 m2m_changed.connect(update_totals, sender=Cart.photos.through)
