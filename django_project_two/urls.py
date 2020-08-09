@@ -29,7 +29,8 @@ urlpatterns = [
     path('usuarios/registro', views.register, name='register'),
     path('admin/', admin.site.urls),
     path('photos/', include('apps.photos.urls')),
-    path('carts/', include('apps.carts.urls'))
+    path('carts/', include('apps.carts.urls')),
+    path('orders/', include('apps.orders.urls'))
 ]
 #esto nos permite mostrar nuestros archivos multimedia en los template
 if settings.DEBUG:
