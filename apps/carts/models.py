@@ -48,6 +48,9 @@ class Cart(models.Model):
         self.total = self.subtotal * decimal.Decimal(Cart.COMISION)
         self.save()
 
+    def photo_related(self):
+        return self.cartphotos_set.select_related('photo')
+
 class CartPhotos(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     photo = models.ForeignKey(Photo, on_delete=models.CASCADE)

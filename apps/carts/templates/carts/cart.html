@@ -18,7 +18,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for cartphoto in cart.cartphotos_set.all %}
+                            {% for cartphoto in cart.photo_related %}
                                 {% with photo=cartphoto.photo %}
                                     <tr>
                                         <th>{{forloop.counter}}</th>
