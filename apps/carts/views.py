@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Cart
+from .models import Cart, CartPhotos
 from .utils import get_or_create_cart
 from apps.photos.models import Photo
 
@@ -39,9 +39,9 @@ def add(request):
     quantity = int(request.POST.get('quantity', 1))
 
     #asocio la foto al carrito
-    cart.photos.add(photo, through_defaults={
-        'quantity':quantity
-    })
+    cart_photo = CartPhotos.objects.create_or_update_quantity(cart=cart,
+                                                              photo=photo,
+                                                              quantity=quantity)
 
     data['photo']=photo
     return render(request, 'carts/add.html', data)

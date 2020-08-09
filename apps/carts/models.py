@@ -51,11 +51,40 @@ class Cart(models.Model):
     def photo_related(self):
         return self.cartphotos_set.select_related('photo')
 
+class CartPhotosManager(models.Manager):
+
+    def create_or_update_quantity(self, cart, photo, quantity=1):
+        """
+        Función que me ayuda a crear o modificar un parametro del registro
+        CartPhotos
+        :param cart (Cart): cart del usuario
+        :param photo (Photo): foto que selecciono para agregar
+        :param quantity (int): cantidad a comprar
+        :return (CartPhotos): registro que fue creado y/o modificado
+        """
+        #get_or_create: la funcion se encarga de crear o obtener el objeto con esos parametros
+        object, created = self.get_or_create(cart=cart, photo=photo)
+
+        #valido si ya existe el registro con esos campos
+        if not created:
+            #actualizo uno de sus parametros
+            quantity = object.quantity + quantity
+
+        object.update_quantity(quantity)
+        return object
+
 class CartPhotos(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     photo = models.ForeignKey(Photo, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
     create_at = models.DateTimeField(auto_now_add=True)
+
+    #Indico la clase que me ayudará con el objects en las queryset
+    objects = CartPhotosManager()
+
+    def update_quantity(self, quantity=1):
+        self.quantity =quantity
+        self.save()
 
 def set_cart_id(sender, instance, *args, **kwargs):
     """
