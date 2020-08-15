@@ -18,6 +18,6 @@ def get_or_create_order(request, cart):
 
     if order:
         # Agrego el id de la orden a la sesión
-        request.session['order_id'] = order.id
+        request.session['order_id'] = order.order_id
 
     return order
