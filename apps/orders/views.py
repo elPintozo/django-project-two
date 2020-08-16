@@ -18,4 +18,7 @@ def order(request):
     # Obtengo la orden de compra
     order = get_or_create_order(request, cart)
 
+    data['cart'] = cart
+    data['order'] = order
+
     return render(request, 'orders/order.html', data)

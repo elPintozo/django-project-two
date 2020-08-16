@@ -34,6 +34,24 @@ class Order(models.Model):
     def __str__(self):
         return self.order_id
 
+    def update_total(self):
+        """
+        Función que me ayuda a mantener el
+        total actualizado
+        :return (None):
+        """
+        self.total = self.get_total()
+        self.save()
+
+    def get_total(self):
+        """
+        Función que suma los totales tanto del carrito
+        como del envio de la orden
+        :return (int): total
+        """
+        return self.cart.total +self.shipping_total
+
+
 def set_order_id(sender, instance, *args, **kwargs):
     """
     Función que me ayuda a generar un identificador
@@ -49,6 +67,18 @@ def set_order_id(sender, instance, *args, **kwargs):
         # uuid.uuid4(): nos permite crear un identificador unico
         instance.order_id = str(uuid.uuid4())
 
+def set_total(sender, instance, *args, **kwargs):
+    """
+    Función que me ayuda a generar generar el total
+    de la orden al momento de guardar la orden
+    :param sender (Class): sobre que Class se aplicará el cambio
+    :param instance (Object): La instancia que se creará
+    :param args (list): otros parametros
+    :param kwargs (list): otros parametros
+    :return (None):
+    """
+    instance.total = instance.get_total()
 
 #Asigno al pre_save la función que actuará antes de guardar, e indico a que class corresponde
 pre_save.connect(set_order_id, sender=Order)
+pre_save.connect(set_total, sender=Order)

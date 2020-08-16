@@ -3,7 +3,21 @@
 {% block content %}
     <div class="row">
         <div class="col mt-2">
-            <h2>Orden de compra</h2>
+            <h2>Revisa tu pedido</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8">
+            <div class="card">
+                <div class="card-body">
+                    {% for photo in cart.photos.all %}
+                        {% include 'orders/snippets/photo.html' %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            {% include 'orders/snippets/resume.html' %}
         </div>
     </div>
 {% endblock%}

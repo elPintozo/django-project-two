@@ -40,6 +40,11 @@ class Cart(models.Model):
         self.subtotal = sum( [ cp.quantity * cp.photo.price for cp in self.photo_related() ] )
         self.save()
 
+        order = self.order_set.first()
+        
+        if order:
+            order.update_total()
+
     def update_total(self):
         """
         Función que calcula el total más la comision asociada y ya definida

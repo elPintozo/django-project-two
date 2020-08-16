@@ -1,0 +1,18 @@
+{% load photo_extras %}
+<div class="row mt-2">
+    <div class="col-2">
+        {% if photo.image %}
+        <img src="{{photo.image.url}}" alt="Imágen del producto" height="50">
+    {% endif %}
+    </div>
+    <div class="col-8">
+        <div class="row">
+            <strong>
+                <a href="{% url 'photos:detail' photo.slug %}"> {{ photo.title}} </a>
+            </strong>
+        </div>
+        <div class="row">
+            <strong class="text-danger">{{ photo.price| price_format}}</strong>
+        </div>
+    </div>
+</div>
