@@ -2,7 +2,9 @@ from django.shortcuts import render
 from .models import Order
 from apps.carts.utils import get_or_create_cart
 from .utils import get_or_create_order
+from django.contrib.auth.decorators import login_required
 
+@login_required(login_url='login')
 def order(request):
     """
     Función que me ayuda a visualizar una orden de compra

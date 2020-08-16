@@ -8,6 +8,8 @@ from .forms import RegisterForm
 from apps.photos.models import Photo
 #from django.contrib.auth.models import User
 from apps.users.models import User
+from django.http import HttpResponseRedirect
+
 def index(request):
     """
     funcion principal
@@ -51,6 +53,14 @@ def login_view(request):
             ##se autentica al usuario
             login(request, user)
             messages.success(request, 'Bienvenido {}.'.format(username))
+
+            # Si el usuario no esta registrado, el login_required lo redirecciona
+            # al login junto con la variable next, que es la vistaq que quería ir
+            if request.GET.get('next'):
+                # una vez logueado se redirecciona a la vista que quería acceder
+                # pero que faltaba su login
+                return HttpResponseRedirect(request.GET.get('next'))
+
             return redirect('index')
         else:
             messages.error(request, 'Usuario o contraseña no validos.')
