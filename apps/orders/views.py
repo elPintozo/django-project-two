@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import Order
 from apps.carts.utils import get_or_create_cart
-from .utils import get_or_create_order
+from .utils import get_or_create_order, breadcrumb
 from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='login')
@@ -20,7 +20,9 @@ def order(request):
     # Obtengo la orden de compra
     order = get_or_create_order(request, cart)
 
+    #variables utilizadas en template
     data['cart'] = cart
     data['order'] = order
+    data['breadcrumb'] = breadcrumb()
 
     return render(request, 'orders/order.html', data)
