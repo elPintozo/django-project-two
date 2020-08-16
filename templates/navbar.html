@@ -2,6 +2,7 @@
 {% url 'logout' as logout %} {#usuarios/logout#}
 {% url 'register' as register %} {#usuarios/registro#}
 {% url 'carts:cart' as cart %} {#carts/cart#}
+{% url 'shipping_addresses:shipping_address' as shipping_addresses %} {#address/shipping_addresses#}
 
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
     <a href="{% url 'index' %}" class="navbar-brand">
@@ -16,6 +17,11 @@
             <li class="nav-item {% if request.path == cart %}active{% endif %}">
                 <a class="nav-link" href="{{cart}}">
                     My Cart <span class="fas fa-shopping-cart"></span>
+                </a>
+            </li>
+            <li class="nav-item {% if request.path == shipping_addresses %}active{% endif %}">
+                <a class="nav-link" href="{{shipping_addresses}}">
+                    My Addres <span class="fas fa-location-arrow"></span>
                 </a>
             </li>
         </ul>

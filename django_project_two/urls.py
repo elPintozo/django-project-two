@@ -30,7 +30,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('photos/', include('apps.photos.urls')),
     path('carts/', include('apps.carts.urls')),
-    path('orders/', include('apps.orders.urls'))
+    path('orders/', include('apps.orders.urls')),
+    path('address/', include('apps.shipping_addresses.urls'))
 ]
 #esto nos permite mostrar nuestros archivos multimedia en los template
 if settings.DEBUG:
