@@ -10,7 +10,7 @@ def get_or_create_order(request, cart):
     """
 
     # Obtengo la orden de compra del carrito
-    order = Order.objects.filter(cart=cart).first()
+    order = cart.order
 
     # valido si existe una orden, sino se crea una
     if order is None and request.user.is_authenticated:

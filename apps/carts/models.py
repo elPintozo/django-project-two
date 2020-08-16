@@ -34,21 +34,21 @@ class Cart(models.Model):
     def update_subtotal(self):
         """
         Función que suma los precios de las photos asociadas a un registro Cart
-        :return:
+        :return (None):
         """
         ##Sumo el precio de todos las photo relacionadas con el registro Cart actual
         self.subtotal = sum( [ cp.quantity * cp.photo.price for cp in self.photo_related() ] )
         self.save()
 
-        order = self.order_set.first()
-        
-        if order:
-            order.update_total()
+        #valido si tiene una orden de compra asociada
+        if self.order:
+            #si existe la orden actualizo su total
+            self.order.update_total()
 
     def update_total(self):
         """
         Función que calcula el total más la comision asociada y ya definida
-        :return:
+        :return (None):
         """
         self.total = self.subtotal * decimal.Decimal(Cart.COMISION)
         self.save()
@@ -60,6 +60,15 @@ class Cart(models.Model):
         :return (queyset):
         """
         return self.cartphotos_set.select_related('photo')
+
+    @property
+    def order(self):
+        """
+        Función que me retorna la orden de compra a partir del carrito,
+        esto es posible ya que la orden tiene asociado un carrito
+        :return (Order): retorna la orden asociada al carrito
+        """
+        return self.order_set.first()
 
 class CartPhotosManager(models.Manager):
 
