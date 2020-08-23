@@ -16,3 +16,11 @@ class Shipping_address(models.Model):
 
     def __str__(self):
         return self.postal_code
+
+    def address(self):
+        """
+        Función que me ayuda a desplegar la información de la
+        dirección de mejor manera cuando se requiera
+        :return (string): city-state-country
+        """
+        return '{} {} {}'.format(self.city, self.state, self.country)
