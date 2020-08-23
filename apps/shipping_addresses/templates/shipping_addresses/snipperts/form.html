@@ -1,5 +1,5 @@
 <div class="mb-5">
-    <form method="post" id="" name="" action="">
+    <form method="post" id="form" name="form">
         {% csrf_token %}
         {% for field in form %}
             <div class="">
@@ -10,6 +10,6 @@
                 {% endif %}
             </div>
         {% endfor %}
-        <button type="submit" class="btn btn-primary mt-2">Agregar</button>
+        <button type="submit" class="btn btn-primary mt-2">{{button_type}}</button>
 </form>
 </div>
