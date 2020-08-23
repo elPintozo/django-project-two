@@ -6,6 +6,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render
 from django.shortcuts import reverse
 from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 
 from django.views.generic import ListView
@@ -136,7 +137,7 @@ def create(request):
         #asigno el usuario a la dirección
         shipping_address.user = request.user
         #hago a validación de asignación de dirección por defecto
-        shipping_address.default = not Shipping_address.objects.filter(user=request.user).exists()
+        shipping_address.default = not request.user.has_shipping_address()
         #guardo la instancia en la bd
         shipping_address.save()
 
@@ -149,3 +150,29 @@ def create(request):
     data['form'] = form
 
     return render(request, 'shipping_addresses/create.html', data)
+
+@login_required(login_url='login')
+def default(request, pk):
+    """
+    Función que me ayuda a seleccionar una dirección por defecto
+    :param request (user):
+    :param pk (int): pk de la dirección
+    :return (redirect):
+    """
+
+    #Obtengo la dirección seleccionada
+    shipping_address = get_object_or_404(Shipping_address, pk=pk)
+
+    #valido si la dirección es del usuario
+    if request.user.id != shipping_address.user_id:
+        return redirect('carts:cart')
+
+    #obtengo la dirección anterior para que deje de ser la principal
+    if request.user.has_shipping_address():
+        request.user.shipping_address.update_default(False)
+
+    #asigno la dirección por defecto
+    shipping_address.update_default(True)
+
+    #redirecciono a la vista principal de las direcciones
+    return redirect('shipping_addresses:shipping_address')

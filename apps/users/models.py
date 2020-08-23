@@ -28,6 +28,23 @@ class User(AbstractUser):
     def get_full_name(self):
         return '{} {}'.format(self.first_name, self.last_name)
 
+    @property
+    def shipping_address(self):
+        """
+        Función que me ayuda a obtener la dirección por defecto
+        de envio de una orde
+        :return (ShippingAddress):
+        """
+        return self.shipping_address_set.filter(default=True).first()
+
+    def has_shipping_address(self):
+        """
+        Función que me ayuda a validar si el usuario posee una dirección
+        por defecto
+        :return (boolean):
+        """
+        return self.shipping_address is not None
+
 ##Ejemplo de un Proxy Model: Un models que hereda de otro y no genera una tabla nueva
 class Customer(User):
 

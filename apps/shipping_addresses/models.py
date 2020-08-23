@@ -24,3 +24,12 @@ class Shipping_address(models.Model):
         :return (string): city-state-country
         """
         return '{} {} {}'.format(self.city, self.state, self.country)
+
+    def update_default(self, default=False):
+        """
+        Función que cambia el parametro default
+        :param default (boolean):
+        :return ():
+        """
+        self.default = default
+        self.save()
