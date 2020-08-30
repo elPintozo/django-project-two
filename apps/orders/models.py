@@ -55,10 +55,19 @@ class Order(models.Model):
         ##Si tiene una dirección por defecto se le asociará esa
         if shipping_address:
             #asigno esa dirección por defecto a la orden
-            self.shipping_address = shipping_address
-            self.save()
+            self.update_shipping_address(shipping_address)
 
         return shipping_address
+
+    def update_shipping_address(self, shipping_address):
+        """
+        Función que me ayuda a reasignar una dirección a una
+        orden
+        :param shipping_address (ShippingAddress):
+        :return (None):
+        """
+        self.shipping_address = shipping_address
+        self.save()
 
     def update_total(self):
         """

@@ -8,6 +8,7 @@ from django.shortcuts import reverse
 from django.shortcuts import redirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect
 
 from django.views.generic import ListView
 from django.views.generic.edit import UpdateView
@@ -15,6 +16,8 @@ from django.views.generic.edit import DeleteView
 
 from .models import ShippingAddress
 from .forms import ShippingAddressForm
+from ..carts.utils import get_or_create_cart
+from ..orders.utils import get_or_create_order
 
 
 class ShippingAddressListView(LoginRequiredMixin, ListView):
@@ -140,6 +143,23 @@ def create(request):
         shipping_address.default = not request.user.has_shipping_address()
         #guardo la instancia en la bd
         shipping_address.save()
+
+        #pregunto si existe la variable en la url ingresada
+        if request.GET.get('next'):
+            # valido si la variable tiene la url esperada luego de crear una direccion
+            if request.GET['next'] == reverse('orders:address'):
+                #Como la petición de crear una direccion viene desde una orden
+                #se busca la orden y se redicciona para ella nuevamenete
+
+                # Obtengo el carrito que se está usando
+                cart = get_or_create_cart(request)
+                # Obtengo la orden de compra
+                order = get_or_create_order(request, cart)
+
+                #asigno la direccion recien creada a la orden que no contaba con una direccion
+                order.update_shipping_address(shipping_address)
+                #una vez finalizado el tema de la direccion y orden de compra, redirecciono donde quedo el usuario
+                return HttpResponseRedirect(request.GET['next'])
 
         ##Notifico al usuario de que se ha creado la dirección
         messages.success(request, 'Dirección creada con exitosamente')
