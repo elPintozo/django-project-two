@@ -44,9 +44,13 @@ def address(request):
     # Obtengo la orden de compra
     order = get_or_create_order(request, cart)
 
+    #obtengo la dirección de envio de la orden
+    shipping_address = order.get_or_set_shipping_address()
+
     #variables pra el template
     data['cart'] = cart
     data['order'] = order
     data['breadcrumb'] = breadcrumb(addres=True)
+    data['shipping_address'] = shipping_address
 
     return render(request, 'orders/address.html', data)

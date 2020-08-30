@@ -11,13 +11,16 @@
                 <div class="h3">
                     Recoge el pedido en el punto de entrega
                 </div>
+                <div class="">
+                    {% include 'shipping_addresses/snippets/shipping_address.html' with edit=False %}
+                </div>
             {% else %}
                 <div class="h3">
                     Registra tu dirección de envío
                 </div>
-            <div class="">
-                <a href="{% url 'shipping_addresses:create' %}"></a>
-            </div>
+                <div class="">
+                    <a href="{% url 'shipping_addresses:create' %}">Nueva dirección de envío.</a>
+                </div>
             {% endif %}
         </div>
     </div>

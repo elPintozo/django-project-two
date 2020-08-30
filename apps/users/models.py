@@ -35,7 +35,7 @@ class User(AbstractUser):
         de envio de una orde
         :return (ShippingAddress):
         """
-        return self.shipping_address_set.filter(default=True).first()
+        return self.shippingaddress_set.filter(default=True).first()
 
     def has_shipping_address(self):
         """

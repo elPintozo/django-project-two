@@ -3,6 +3,7 @@ from django.db import models
 from enum import Enum
 from apps.users.models import User
 from apps.carts.models import Cart
+from apps.shipping_addresses.models import ShippingAddress
 from django.db.models.signals import pre_save
 
 # Create your models here.
@@ -29,10 +30,35 @@ class Order(models.Model):
                                 max_digits=8,
                                 decimal_places=2)
     create_at = models.DateTimeField(auto_now_add=True)
+    shipping_address = models.ForeignKey(ShippingAddress,
+                                         null=True,
+                                         blank=True,
+                                         on_delete=models.CASCADE)
 
     ##la forma en como será visible el objeto al momento de ser pasado a string
     def __str__(self):
         return self.order_id
+
+    def get_or_set_shipping_address(self):
+        """
+        Funcion que me ayuda a gestionar el tema de la dirección asociada
+        a un registro de orden
+        :return (ShippingAddress):
+        """
+        ## si ya posee una dirección se le retorna esa
+        if self.shipping_address:
+            return self.shipping_address
+
+        #Obtengo la dirección por defecto del usuario
+        shipping_address = self.user.shipping_address
+
+        ##Si tiene una dirección por defecto se le asociará esa
+        if shipping_address:
+            #asigno esa dirección por defecto a la orden
+            self.shipping_address = shipping_address
+            self.save()
+
+        return shipping_address
 
     def update_total(self):
         """
