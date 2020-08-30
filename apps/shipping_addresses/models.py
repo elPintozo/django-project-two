@@ -2,7 +2,7 @@ from django.db import models
 from apps.users.models import User
 
 # Create your models here.
-class Shipping_address(models.Model):
+class ShippingAddress(models.Model):
     user = models.ForeignKey(User, null=False, blank=False, on_delete=models.CASCADE)
     line1 = models.CharField(max_length=200)
     line2 = models.CharField(max_length=200, blank=True)

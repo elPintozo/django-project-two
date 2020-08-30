@@ -1,9 +1,9 @@
 from django.forms import ModelForm
-from .models import Shipping_address
+from .models import ShippingAddress
 
 class ShippingAddressForm(ModelForm):
     class Meta:
-        model = Shipping_address
+        model = ShippingAddress
         fields = [
             'line1',
             'line2',

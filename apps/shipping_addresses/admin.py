@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Shipping_address
+from .models import ShippingAddress
 
 # Register your models here.
-admin.site.register(Shipping_address)
+admin.site.register(ShippingAddress)

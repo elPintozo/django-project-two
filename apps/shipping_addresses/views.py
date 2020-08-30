@@ -13,7 +13,7 @@ from django.views.generic import ListView
 from django.views.generic.edit import UpdateView
 from django.views.generic.edit import DeleteView
 
-from .models import Shipping_address
+from .models import ShippingAddress
 from .forms import ShippingAddressForm
 
 
@@ -27,13 +27,13 @@ class ShippingAddressListView(LoginRequiredMixin, ListView):
     login_url = 'login'
 
     #indico el model del cual debe conectar
-    model = Shipping_address
+    model = ShippingAddress
 
     #indico el template sobre cual actuar
     template_name = 'shipping_addresses/shipping_addresses.html'
 
     def get_queryset(self):
-        return Shipping_address.objects.filter(user=self.request.user).order_by('-default')
+        return ShippingAddress.objects.filter(user=self.request.user).order_by('-default')
 
 class ShippingAddressUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     """
@@ -44,7 +44,7 @@ class ShippingAddressUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateV
     login_url = 'login'
 
     # indico el model del cual debe conectar
-    model = Shipping_address
+    model = ShippingAddress
 
     #indico el form del cual debe tomar para editar los campos
     form_class = ShippingAddressForm
@@ -88,7 +88,7 @@ class ShippingAddressDeleteView(LoginRequiredMixin, DeleteView):
     login_url = 'login'
 
     # indico el model del cual debe conectar
-    model = Shipping_address
+    model = ShippingAddress
 
     # indico el template sobre cual actuar
     template_name = 'shipping_addresses/delete.html'
